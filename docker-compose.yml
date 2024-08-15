@@ -1,0 +1,36 @@
+
+networks:
+  net:
+    driver: bridge
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai-support-chain-service
+    environment:
+      - PORT=${PORT}
+    env_file:
+      - ".env"
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./src:/app/src
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+      - ./node_modules:/app/node_modules
+    networks:
+      - net
+  chromadb:
+    image: chromadb/chroma:latest
+    volumes:
+      - ./chromadb:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=FALSE
+      - PERSIST_DIRECTORY=/chroma/chroma
+      - ANONYMIZED_TELEMETRY=${ANONYMIZED_TELEMETRY:-TRUE}
+      - ALLOW_RESET=TRUE
+    ports:
+      - 8000:8000
+    networks:
+      - net
