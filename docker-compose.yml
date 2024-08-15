@@ -31,6 +31,6 @@ services:
       - ANONYMIZED_TELEMETRY=${ANONYMIZED_TELEMETRY:-TRUE}
       - ALLOW_RESET=TRUE
     ports:
-      - 8000:8000
+      - 8860:8000
     networks:
       - net
