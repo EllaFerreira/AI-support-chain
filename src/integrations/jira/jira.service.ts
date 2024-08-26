@@ -1,12 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { JiraConfig } from './jira.config';
+import { jiraConfig, JiraConfig } from './jira.config';
 import { JiraResponse } from 'src/features/ai-support/dto/jira.type';
 
 @Injectable()
 export class JiraService {
   private readonly client: AxiosInstance;
-  constructor(private config: JiraConfig) {
+  constructor(@Inject(jiraConfig.KEY) readonly config: JiraConfig) {
     this.client = axios.create({
       baseURL: this.config.JIRA_BASE_URL,
       headers: {
