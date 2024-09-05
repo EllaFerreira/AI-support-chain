@@ -8,9 +8,16 @@ import { createStuffDocumentsChain } from 'langchain/chains/combine_documents';
 import { Chroma } from '@langchain/community/vectorstores/chroma';
 import { Document } from '@langchain/core/documents';
 import { ChromaClient } from 'chromadb';
+import { JiraTool } from './tools/jira-search-tool';
+import { LangGraphService } from './lang-graph-service';
+import { HumanMessage } from '@langchain/core/messages';
 
 @Injectable()
 export class AiSupportService {
+  constructor(
+    private readonly jiraTool: JiraTool,
+    private readonly langGraphService: LangGraphService,
+  ) {}
   async prompt(input: string): Promise<any> {
     const content = loadFile('./src/fixtures/test.md');
 
@@ -89,5 +96,25 @@ export class AiSupportService {
       { collectionName: 'db_ai_test', url: 'http://chromadb:8000' },
     );
     return vectorStore;
+  }
+
+  async testTool(input: string): Promise<any> {
+    const llm = new ChatOpenAI({
+      model: 'gpt-4o-mini',
+      temperature: 0,
+    });
+
+    const test = await this.langGraphService.callAgent({
+      messages: [
+        new HumanMessage(
+          `Search for any relevant support tickets that have keywords from the ${input} in the Jira board.`,
+        ),
+      ],
+      tools: [this.jiraTool],
+      llm: llm,
+      systemMessage:
+        'You are a support engineer with access to a tool for fetching support tickets from a Jira board. Your task is to process the input query, use the tool to perform the search, and return relevant results.',
+    });
+    return test;
   }
 }

@@ -30,4 +30,13 @@ export class AiSupportController {
       throw error;
     }
   }
+  @Post('test-tool')
+  async testAgent(@Body() body: { prompt: string }): Promise<any> {
+    try {
+      return this.appService.testTool(body.prompt);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }
