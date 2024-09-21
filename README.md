@@ -1,6 +1,6 @@
 # AI-Support-Chain 🤖 ⛓️
 
-AI-Support-Chain is a tool that helps support team quickly spot recurring issues in user queries. It uses AI to detect patterns in support requests and prioritize frequent problems, making it easier to manage and resolve common issues.
+AI-Support-Chain is a tool that spots recurring issues in user queries. It uses AI to detect patterns in support requests and prioritize frequent problems, making it easier to manage and resolve common issues.
 
 ## Technologies Used
 
@@ -11,13 +11,18 @@ AI-Support-Chain is a tool that helps support team quickly spot recurring issues
 | **TypeScript**| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript Icon" width="40"/> | Provides strong typing and modern JavaScript features.                                                   |
 | **Docker**    | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker Icon" width="40"/>   | Ensures easy deployment and consistent environments across different stages of development.              |
 
+## Technical Overview
+
+1. Architecture
+
+<img src="docs/architecture.png">
 
 ## Getting Started
 
 1. Clone the repository:
 
 ```
-   git clone git@github.com:MontuGroup/ai-support-chain.git
+   git clone 
 ```
 
 2. Install dependencies:
