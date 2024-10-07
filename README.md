@@ -33,12 +33,13 @@ The project is a monorepo using Nx, a powerful toolkit for building modern web a
 
 1. Clone the repository:
 
-   ```bash
+   ```
    git clone https://github.com/EllaFerreira/ai-support-chain.git
+   ```
 
 2. Install dependencies:
 
-   ```bash
+   ```
    npm install
    ```
 
@@ -46,13 +47,12 @@ The project is a monorepo using Nx, a powerful toolkit for building modern web a
 
 1. Start the server:
 
-   ```bash
-  nx run dev-local
    ```
+   nx run dev-local
 
 2. Start the client:
 
-   ```bash
+   ```
    nx run dev
    ```
 
@@ -60,7 +60,7 @@ The project is a monorepo using Nx, a powerful toolkit for building modern web a
 
 1. Start Docker containers:
 
-   ```bash
+   ```
    docker compose up -d
    ```
 
