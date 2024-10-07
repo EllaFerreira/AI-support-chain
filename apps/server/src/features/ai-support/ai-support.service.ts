@@ -11,6 +11,8 @@ import { HumanMessage } from '@langchain/core/messages';
 import { JiraTool } from './tools/jira-search-tool';
 import { LangGraphService } from './lang-graph-service';
 import { loadFile } from 'src/utils/utils';
+import { Payload } from 'src/types';
+import { JiraToolResponse } from 'src/schema';
 
 @Injectable()
 export class AiSupportService {
@@ -98,23 +100,24 @@ export class AiSupportService {
     return vectorStore;
   }
 
-  async testTool(input: string): Promise<any> {
+  async findTickets(data: Payload): Promise<JiraToolResponse> {
+    console.log(data);
     const llm = new ChatOpenAI({
       model: 'gpt-4o-mini',
       temperature: 0,
     });
 
-    const test = await this.langGraphService.callAgent({
+    const jiraTickets = await this.langGraphService.callAgent({
       messages: [
         new HumanMessage(
-          `Search for any relevant support tickets that have keywords from the ${input} in the Jira board.`,
+          `Search for any relevant support tickets that have keywords from the ${data.userCode} in the Jira board.`,
         ),
       ],
       tools: [this.jiraTool],
-      llm: llm,
+      llm,
       systemMessage:
         'You are a support engineer with access to a tool for fetching support tickets from a Jira board. Your task is to process the input query, use the tool to perform the search, and return relevant results.',
     });
-    return test;
+    return jiraTickets;
   }
 }

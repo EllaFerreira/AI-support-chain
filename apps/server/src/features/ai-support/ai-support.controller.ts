@@ -3,6 +3,8 @@ import { AiSupportService } from './ai-support.service';
 import { PromptDto } from './dto/prompt.dto';
 import { ConfigService } from '@nestjs/config';
 import { JiraService } from 'src/integrations/jira/jira.service';
+import { Payload } from 'src/types';
+import { JiraToolResponse } from 'src/schema';
 
 @Controller('ai')
 export class AiSupportController {
@@ -30,10 +32,10 @@ export class AiSupportController {
       throw error;
     }
   }
-  @Post('test-tool')
-  async testAgent(@Body() body: { prompt: string }): Promise<any> {
+  @Post('find-tickets')
+  async testAgent(@Body() body: Payload): Promise<JiraToolResponse> {
     try {
-      return this.appService.testTool(body.prompt);
+      return this.appService.findTickets(body);
     } catch (error) {
       console.error(error);
       throw error;
